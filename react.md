@@ -17,6 +17,32 @@
 	foreach không return gì
 	map return array nên sẽ in ra giá trị
 
+##Fetch
+	Cơ bản:
+	fetch( 'url' )
+		.then( res => res.json() ) // res là response object, res.json() trả về 1 promise có chứa data là 1 Javascript object (object, array, string...)
+
+##JSON server
+Chạy không cần cài đặt npx json-server data/db.json --port 8000
+Trong file json, mỗi 1 top level là 1 endpoint
+{
+	"blogs": [
+		{
+			"title": "My First Blog",
+			"body": "",
+			"author": "mario",
+			"id": 1
+		},
+		{
+			"title": "Opening Party!",
+			"body": "",
+			"author": "yoshi",
+			"id": 2
+		}
+	]
+}
+json server sẽ tự setup các endpoint là blogs và blogs/{id}
+
 ##Khi chèn style cho 1 component thì phải bỏ ra 1 thẻ div, nếu không react sẽ hiểu đấy là 1 prop
 
 	<div style={showWhenVisible}>
@@ -218,6 +244,8 @@
 			Action Creator -> Action -> dispatch -> middleware -> Reducers -> State
 
 ##React Router:
+	Mục đích là load page mà không cần gửi request tới server.
+
 	cài đặt: npm install --save react-router-dom
 
 	1 số components
@@ -237,10 +265,16 @@
 			</Switch>
 		</Router>
 
-		Link: link trên navigation, click sẽ thay đổi URL
+		Link: link trên navigation, click sẽ thay đổi URL. Nếu không dùng Link component mà dùng link bình thường thì sẽ vẫn gửi request tới server.
 			<Link to="/">home</Link>
 
 		Switch: đưa các components cần hiển thị vào trong component này:
+		Hiểu component Swich này như là switch của js
+			switch( route ):
+				case '/':
+					render Home template
+				case '/notes':
+					render Notes template
 		<Switch>
 			<Route path="/notes">
 				<Notes />
@@ -257,7 +291,14 @@
 			</Route>
 			path sẽ tương ứng với <Link> khai báo ở trên
 
-		Switch sẽ render component đầu tiên mà có patch match với URL
+			404: đặt ở cuối
+			<Route path="/notes">
+				<Notes />
+			</Route>
+
+		Switch sẽ render component đầu tiên mà có path match với URL
+			Nếu URL là /notes cũng sẽ match với / vì /notes chứa /
+				=> cần thêm exact attribute: <Route exact path="/">
 		Thứ tự các component trong switch cũng rất quan trọng, nếu đặt path="/" thì sẽ không có gì hiển thị
 
 	useParam(): dùng để lấy parameter trên url
@@ -268,8 +309,9 @@
 			<Note notes={notes} />
 		</Route>
 
-	useHistory(): dùng để thay đổi url:
-		useHistory().push( '/' );
+	useHistory(): dùng để redirect:
+		const history = useHistory()
+		history.push( '/' );
 
 ##async, await và promise:
 	await phải dùng ở trong async
