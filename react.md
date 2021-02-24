@@ -292,9 +292,7 @@ json server sẽ tự setup các endpoint là blogs và blogs/{id}
 			path sẽ tương ứng với <Link> khai báo ở trên
 
 			404: đặt ở cuối
-			<Route path="/notes">
-				<Notes />
-			</Route>
+			<Route component={NotFound} />
 
 		Switch sẽ render component đầu tiên mà có path match với URL
 			Nếu URL là /notes cũng sẽ match với / vì /notes chứa /
