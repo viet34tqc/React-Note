@@ -165,7 +165,7 @@ json server sẽ tự setup các endpoint là blogs và blogs/{id}
 		createStore: tạo store
 			import {createStore} from 'redux'
 			Tham số truyền vào là reducer
-			const store = creatStore( reducer );
+			const store = createStore( reducer );
 		Dispatch: thực thi 1 action, ví dụ như bấm nút thì dispatch action tương ứng
       		<button onClick={e => store.dispatch({ type: "INCREMENT" })}>plus</button>
 		subscribe: 1 hàm
@@ -180,7 +180,23 @@ json server sẽ tự setup các endpoint là blogs và blogs/{id}
 	the store invokes reducers → reducers generate new state → listeners are notified of state updates.
 
 	React-redux:
-		npm install --save react-redux
+		- useSelector(): lấy giá trị từ store: useSelector( state => state.hobby.list )
+		- useDispatch(): dispatch action: const dispatch = useDispatch();
+		1. Setup redux store
+			- Reducers & Root reducer
+				+ Root reducer combines other reducers by using combineReducers() from Redux
+					const rootReducers = combineReducers( {
+						hobby: hobbyReducer,
+						user: userReducer,
+					} )
+			- Action creator
+			- Store
+		2. Setup redux provider
+			- Allow redux store to be accessible from anywhere of the app
+		3. Connect to redux store from components
+			- Using hooks: useSelector() and useDispatch()
+
+		npm install -D react-redux
 			Dùng component <Provider> để kết nối component với store
 
 			import { Provider } from "react-redux";
